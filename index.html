@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>True or False Quiz Game</title>
-<link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>True-False</title>
 </head>
 <body>
-<div class="container">
-<h1>True or False Quiz Game</h1>
-<div id="categorySelection"></div>
-<div id="question"></div>
-<div id="answers" style="display:none;">
-<button class="answer-btn" onclick="submitAnswer(true)">True</button>
-<button class="answer-btn" onclick="submitAnswer(false)">False</button>
-</div>
-<div id="feedback"></div>
-<div id="score">Score: 0</div>
-<div id="finalMessage"></div>
-<button id="resetBtn" onclick="resetGame()" style="display:none;">Reset Game</button>
-</div>
-<script src="assets/js/script.js"></script>
+    <div class="conatiner">
+        <h1>True or False Quiz Game</h1>
+        <div id="categorySelection"></div>
+        <div id="question"></div>
+        <div id="answers">
+            <button class="answer-btn" onclick="submitAnswer(true)">True</button>
+            <button class="answer-btn" onclick="submitAnswer(false)">False</button>
+        </div>
+        <div id="feedback"></div>
+        <div id="score">Score: 0</div>
+    </div>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
