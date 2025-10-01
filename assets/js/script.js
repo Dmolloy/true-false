@@ -37,4 +37,18 @@ function loadQuestion(category) {
     const realIndex = questions[category].push(realIndex);
 }
 
+/* Function to check answers */
+function submitAnswer(answer) {
+    if (currentQuestion) {
+        if (answer === currentQuestion.a) {
+            score++;
+            document.getElementById("feedback").className = "correct";
+        } else {
+            document.getElementById("feedback").className = "incorrect";
+        }
+    }
+    answeredCount++;
+    document.getElementById("score").innerText = "Score: " + score;
+}
+
 loadCategories();
