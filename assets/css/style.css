@@ -24,6 +24,42 @@ h1 {
     color: #333;
 }
 
+
+#question {
+    font-size: 1.2em;
+    margin: 20px 0;
+    color: #222;
+}
+
+#feedback {
+    margin-top: 10px;
+    font-style: italic;
+    min-height: 24px; /* keeps layout stable */
+    word-wrap: break-word;
+}
+
+#feedback.correct {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+#feedback.incorrect {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+#score {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #4a90e2;
+}
+
+#finalMessage {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #27ae60;
+}
+
 /* Styling for buttons*/
 
 .category-btn, .answer-btn, #resetBtn {
