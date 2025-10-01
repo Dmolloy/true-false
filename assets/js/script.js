@@ -52,7 +52,7 @@ function loadCategories() {
             const btn = document.createElement("button");
             btn.className = "category-btn";
             btn.innerText = category;
-            btn.conclick = () => loadQuestion(category);
+            btn.onclick = () => loadQuestion(category);
             container.appendChild(btn);
         }
     }
@@ -64,7 +64,14 @@ function loadQuestion(category) {
     if (available.length === 0) return;
     const randIndex = Math.floor(Math.random() * available.length);
     currentQuestion = available[randIndex];
-    const realIndex = questions[category].push(realIndex);
+    const realIndex = questions[category].indexOf(currentQuestion);
+    usedQuestions[category].push(realIndex);
+
+    document.getElementById("question").innerText = currentQuestion.q;
+    document.getElementById("answers").style.display = "block";
+    document.getElementById("categorySelection").innerHTML = "";
+    document.getElementById("feedback").innerText = "";
+    document.getElementById("feedback").className = "";
 }
 
 /* Function to check answers */
@@ -72,7 +79,7 @@ function submitAnswer(answer) {
     if (currentQuestion) {
         if (answer === currentQuestion.a) {
             score++;
-            document.getElementById("feedback").innderText = "Correct!";
+            document.getElementById("feedback").innerText = "Correct!";
             document.getElementById("feedback").className = "correct";
         } else {
             document.getElementById("feedback").innerText = `Incorrect! The correct answer was ${currentQuestion.a ? 'True' : 'False'}.`; /* Gives correct answer */
@@ -81,6 +88,47 @@ function submitAnswer(answer) {
     }
     answeredCount++;
     document.getElementById("score").innerText = "Score: " + score;
+
+    if (answeredCount === totalQuestions) {
+        setTimeout(endGame, 1500);
+    } else {
+        setTimeout(() => {
+            document.getElementById("answers").style.display = "none";
+            document.getElementById("question").innerText = "";
+            document.getElementById("feedback").innerText = "";
+            document.getElementById("feedback").className = "";
+            loadCategories();
+        }, 1500);
+    }
 }
 
+/* End game when all questions are answered */
+
+function endGame() {
+    document.getElementById("question").innerText = "";
+    document.getElementById("answers").style.display = "none";
+    document.getElementById("categorySelection").innerHTML = "";
+    document.getElementById("feedback").innerText = "";
+    document.getElementById("feedback").className = "";
+    document.getElementById("score").innerText = `Final Score: ${score}/${totalQuestions}`;
+    document.getElementById("resetBtn").style.display = "inline-block";
+
+}
+
+/* Function to reset game */
+function resetGame() {
+    score = 0;
+    answeredCount = 0;
+    usedQuestions = { History: [], Science: [], Music: [], Geography: [] };
+    currentQuestion = null;
+
+    document.getElementById("score").innerText = "Score: 0";
+    document.getElementById("feedback").innerText = "";
+    document.getElementById("feedback").className = "";
+    document.getElementById("resetBtn").style.display = "none"; // hide reset button again
+
+    loadCategories();
+}
+
+/* Start the game */
 loadCategories();

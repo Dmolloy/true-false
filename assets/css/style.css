@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: #f4f6f9;
+    background: grey;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,7 +24,9 @@ h1 {
     color: #333;
 }
 
-.category-btn, .answer-btn {
+/* Styling for buttons*/
+
+.category-btn, .answer-btn, #resetBtn {
     background: #4a90e2;
     margin: 10px;
     padding: 10px 20px;
@@ -36,15 +38,21 @@ h1 {
     transition: background 0.2s;
 }
 
-#score {
-    margin-top: 15px;
-    font-weight: bold;
-    color: #4a90e2;
+#resetBtn {
+    display: none; /* Keeps hidden until game ends*/
+    background: #e94e77;
+}
+
+#resetBtn:hover {
+    background: #c43c61;
+    transform: scale(1.05);
 }
 
 .category-btn:hover, .answer-btn:hover {
     background: #357ab8;
 }
+
+/* Responsive styles */
 
 /* For tablets ( 480px and up) */
 @media (max-width: 480px) {
