@@ -1,3 +1,15 @@
+let score = 0;
+let answeredCount = 0;
+const totalQuestions = 20; // 4 categories × 5 questions each
+let currentQuestion = null;
+
+let usedQuestions = {
+  History: [],
+  Science: [],
+  Music: [],
+  Geography: []
+};
+
 const questions = {
     History: [
         {q: "The Great Wall of China was built during the Ming Dynasty.", a: true},
@@ -28,6 +40,24 @@ const questions = {
         {q: "Russia is the largest country by land area.", a: true}
     ]
 };
+
+/* Function to load Categories*/
+
+function loadCategories() {
+    const container = document.getElementById("categorySelection");
+    container.innerHTML = "<h3>Select a Category:</h3>";
+
+    for (const category in questions) {
+        if (usedQuestions[category].length < questions[category].length){
+            const btn = document.createElement("button");
+            btn.className = "category-btn";
+            btn.innerText = category;
+            btn.conclick = () => loadQuestion(category);
+            container.appendChild(btn);
+        }
+    }
+}
+
  /* Function to load questions  */
 function loadQuestion(category) {
     const available = questions[category].filter((_,i) => !usedQuestions[category].includes(i));
@@ -42,8 +72,10 @@ function submitAnswer(answer) {
     if (currentQuestion) {
         if (answer === currentQuestion.a) {
             score++;
+            document.getElementById("feedback").innderText = "Correct!";
             document.getElementById("feedback").className = "correct";
         } else {
+            document.getElementById("feedback").innerText = `Incorrect! The correct answer was ${currentQuestion.a ? 'True' : 'False'}.`; /* Gives correct answer */
             document.getElementById("feedback").className = "incorrect";
         }
     }
