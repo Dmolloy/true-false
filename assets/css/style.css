@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background: grey;
+    background: lightblue;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,6 +86,23 @@ h1 {
 
 .category-btn:hover, .answer-btn:hover {
     background: #357ab8;
+}
+
+.answer-btn:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.answer-btn.correct {
+    background: #4CAF50;
+    color: #fff;
+}
+
+.answer-btn.incorrect {
+    background: #e74c3c;
+    color: #fff;
 }
 
 /* Responsive styles */

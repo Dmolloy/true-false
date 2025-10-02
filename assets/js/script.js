@@ -1,6 +1,6 @@
 let score = 0;
 let answeredCount = 0;
-const totalQuestions = 20; // 4 categories × 5 questions each
+const totalQuestions = 20; /*4 categories × 5 questions each*/
 let currentQuestion = null;
 
 let usedQuestions = {
@@ -41,7 +41,7 @@ const questions = {
     ]
 };
 
-/* Load category buttons */
+/* Function to load category buttons */
 function loadCategories() {
     const container = document.getElementById("categorySelection");
     container.innerHTML = "<h3>Select a Category:</h3>";
@@ -57,7 +57,7 @@ function loadCategories() {
     }
 }
 
-/* Load a question for the selected category */
+/* Function to load questions */
 function loadQuestion(category) {
     const available = questions[category].filter((_, i) => !usedQuestions[category].includes(i));
     if (available.length === 0) return;
@@ -67,28 +67,28 @@ function loadQuestion(category) {
     const realIndex = questions[category].indexOf(currentQuestion);
     usedQuestions[category].push(realIndex);
 
-    // Show question and answers
+    /* Show question and answers*/
     document.getElementById("question").innerText = currentQuestion.q;
     document.getElementById("answers").style.display = "block";
     document.getElementById("categorySelection").innerHTML = "";
     document.getElementById("feedback").innerText = "";
     document.getElementById("feedback").className = "";
 
-    // Ensure buttons are enabled
+    /*Ensure buttons are enabled*/
     document.getElementById("trueBtn").disabled = false;
     document.getElementById("falseBtn").disabled = false;
     document.getElementById("trueBtn").classList.remove("correct", "incorrect");
     document.getElementById("falseBtn").classList.remove("correct", "incorrect");
 }
 
-/* Check the answer */
+/* Function to check the answer */
 function submitAnswer(answer) {
     if (!currentQuestion) return;
 
     const trueBtn = document.getElementById("trueBtn");
     const falseBtn = document.getElementById("falseBtn");
 
-    // Disable buttons immediately
+    /*Disable buttons immediately*/
     trueBtn.disabled = true;
     falseBtn.disabled = true;
 
@@ -101,7 +101,7 @@ function submitAnswer(answer) {
             `Incorrect! The correct answer was ${currentQuestion.a ? 'True' : 'False'}.`;
         document.getElementById("feedback").className = "incorrect";
 
-        // Highlight correct button
+        /*Highlight correct button*/
         if (currentQuestion.a) trueBtn.classList.add("correct");
         else falseBtn.classList.add("correct");
     }
