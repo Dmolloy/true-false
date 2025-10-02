@@ -41,14 +41,13 @@ const questions = {
     ]
 };
 
-/* Function to load Categories*/
-
+/* Load category buttons */
 function loadCategories() {
     const container = document.getElementById("categorySelection");
     container.innerHTML = "<h3>Select a Category:</h3>";
 
     for (const category in questions) {
-        if (usedQuestions[category].length < questions[category].length){
+        if (usedQuestions[category].length < questions[category].length) {
             const btn = document.createElement("button");
             btn.className = "category-btn";
             btn.innerText = category;
@@ -58,34 +57,55 @@ function loadCategories() {
     }
 }
 
- /* Function to load questions  */
+/* Load a question for the selected category */
 function loadQuestion(category) {
-    const available = questions[category].filter((_,i) => !usedQuestions[category].includes(i));
+    const available = questions[category].filter((_, i) => !usedQuestions[category].includes(i));
     if (available.length === 0) return;
+
     const randIndex = Math.floor(Math.random() * available.length);
     currentQuestion = available[randIndex];
     const realIndex = questions[category].indexOf(currentQuestion);
     usedQuestions[category].push(realIndex);
 
+    // Show question and answers
     document.getElementById("question").innerText = currentQuestion.q;
     document.getElementById("answers").style.display = "block";
     document.getElementById("categorySelection").innerHTML = "";
     document.getElementById("feedback").innerText = "";
     document.getElementById("feedback").className = "";
+
+    // Ensure buttons are enabled
+    document.getElementById("trueBtn").disabled = false;
+    document.getElementById("falseBtn").disabled = false;
+    document.getElementById("trueBtn").classList.remove("correct", "incorrect");
+    document.getElementById("falseBtn").classList.remove("correct", "incorrect");
 }
 
-/* Function to check answers */
+/* Check the answer */
 function submitAnswer(answer) {
-    if (currentQuestion) {
-        if (answer === currentQuestion.a) {
-            score++;
-            document.getElementById("feedback").innerText = "Correct!";
-            document.getElementById("feedback").className = "correct";
-        } else {
-            document.getElementById("feedback").innerText = `Incorrect! The correct answer was ${currentQuestion.a ? 'True' : 'False'}.`; /* Gives correct answer */
-            document.getElementById("feedback").className = "incorrect";
-        }
+    if (!currentQuestion) return;
+
+    const trueBtn = document.getElementById("trueBtn");
+    const falseBtn = document.getElementById("falseBtn");
+
+    // Disable buttons immediately
+    trueBtn.disabled = true;
+    falseBtn.disabled = true;
+
+    if (answer === currentQuestion.a) {
+        score++;
+        document.getElementById("feedback").innerText = "Correct!";
+        document.getElementById("feedback").className = "correct";
+    } else {
+        document.getElementById("feedback").innerText =
+            `Incorrect! The correct answer was ${currentQuestion.a ? 'True' : 'False'}.`;
+        document.getElementById("feedback").className = "incorrect";
+
+        // Highlight correct button
+        if (currentQuestion.a) trueBtn.classList.add("correct");
+        else falseBtn.classList.add("correct");
     }
+
     answeredCount++;
     document.getElementById("score").innerText = "Score: " + score;
 
@@ -97,13 +117,19 @@ function submitAnswer(answer) {
             document.getElementById("question").innerText = "";
             document.getElementById("feedback").innerText = "";
             document.getElementById("feedback").className = "";
+
+            trueBtn.disabled = false;
+            falseBtn.disabled = false;
+            trueBtn.classList.remove("correct", "incorrect");
+            falseBtn.classList.remove("correct", "incorrect");
+
+            currentQuestion = null;
             loadCategories();
         }, 1500);
     }
 }
 
-/* End game when all questions are answered */
-
+/* End game */
 function endGame() {
     document.getElementById("question").innerText = "";
     document.getElementById("answers").style.display = "none";
@@ -112,10 +138,9 @@ function endGame() {
     document.getElementById("feedback").className = "";
     document.getElementById("score").innerText = `Final Score: ${score}/${totalQuestions}`;
     document.getElementById("resetBtn").style.display = "inline-block";
-
 }
 
-/* Function to reset game */
+/* Reset game */
 function resetGame() {
     score = 0;
     answeredCount = 0;
@@ -125,7 +150,7 @@ function resetGame() {
     document.getElementById("score").innerText = "Score: 0";
     document.getElementById("feedback").innerText = "";
     document.getElementById("feedback").className = "";
-    document.getElementById("resetBtn").style.display = "none"; // hide reset button again
+    document.getElementById("resetBtn").style.display = "none";
 
     loadCategories();
 }
