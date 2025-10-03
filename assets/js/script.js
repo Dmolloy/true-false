@@ -44,17 +44,17 @@ const questions = {
 /* Function to load category buttons */
 function loadCategories() {
     const container = document.getElementById("categorySelection");
-    container.innerHTML = "<h3>Select a Category:</h3>";
+    container.innerHTML = "<h2>Select a Category:</h2>";
 
-    for (const category in questions) {
+    Object.keys(questions).forEach(category => {
         if (usedQuestions[category].length < questions[category].length) {
             const btn = document.createElement("button");
-            btn.className = "category-btn";
+            btn.className = `category-btn ${category.toLowerCase()}`;
             btn.innerText = category;
             btn.onclick = () => loadQuestion(category);
             container.appendChild(btn);
         }
-    }
+    });
 }
 
 /* Function to load questions */
