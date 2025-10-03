@@ -34,6 +34,7 @@ h1 {
 }
 
 #feedback {
+    font-family: 'Winky Sans';
     margin-top: 10px;
     font-style: italic;
     min-height: 24px; /* keeps layout stable */
